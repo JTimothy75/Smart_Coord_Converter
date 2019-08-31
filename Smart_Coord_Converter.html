@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>IB Local Coord To NNO</title>
+        <style>
+            header{
+                background: #616c774d;
+                border: 2px #000000 solid;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                position: relative;
+                margin: 0 auto;
+                text-align: center;
+                width: 400px;
+            }
+
+            #main-form {
+                border: 2px #000000 solid;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+                position: relative;
+                margin: 0 auto;
+                width: 400px;
+            }
+
+            [data-input-set] {
+                background: #3d9be72a;
+                border: 2px #000000 solid;
+                border-radius: 10px;
+                position: relative;
+                width: 89%;
+                height: 100 px;
+                margin: 2%;
+            }
+
+            .data-set {
+                display: inline-block;
+                text-align: center;
+            }
+
+            #data-set-from{
+                position: relative;
+                left: 0;
+            }
+            #data-set-unit{
+                border-left: #000000 solid 2px;
+                border-right: #000000 solid 2px;
+                padding: 0 5px 0;
+                position: absolute;
+                left: 118px;
+            }
+            #data-set-to{
+                position: absolute;
+                right: 40px;
+            }
+
+            [data-input-cood] {
+                padding-top: 20px;
+                background: #3d9be72a;
+                border: 2px #000000 solid;
+                border-radius: 10px;
+                float: left;
+                width: 38%;
+                height: 200px;
+                margin: 2.5%;
+            }
+
+            legend{
+                color: #fc3030;
+            }
+
+            [data-btn]{
+                background: #3d9be72a;
+                border: 2px #000000 solid;
+                border-radius: 10px;
+                width: 90%;
+                height: 50px;
+                margin: 5% auto;
+            }
+
+            #out_coord_x, #out_coord_y, #input_coord_x, #input_coord_y{
+                width: 7em;
+            }
+
+            .form-data{
+                display: block;
+            }
+
+
+            #getCoord{
+                background: #5879d3fd;
+                border-radius: 7px;
+                display: block;
+                position: relative;
+                height: 2em;
+                width: 20em;
+                margin: 0 auto 5px;
+            }
+
+            #clear {
+                background: #fc3030;
+                border-radius: 7px;
+                display: block;
+                position: relative;
+                height: 2em;
+                width: 20em;
+                margin: 0 auto;
+            }
+
+            [data-output-cood] {
+                background: #3d9be72a;
+                border: 2px #000000 solid;
+                border-radius: 10px;
+                float: right;
+                padding-top: 20px;
+                width: 38%;
+                height: 200px;
+                margin: 2.5%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <h1 class="h-one">Smart Coord Converter</h1>
+        </header>
+
+        <main>
+            <form id="main-form">
+                <fieldset data-input-set>
+                    <div class="data-set" id="data-set-from">
+                        <h3 for="coord-origin">From</h3>
+                        <select name="coord-origin" data-coord-origin>
+                            <option value="tn" selected>TN</option>
+                            <option value="scs1s">SCS 1s</option>
+                            <option value="ocs1old">OCS 1 OLD</option>
+                            <option value="ocs47p">OCS 47p</option>
+                            <option value="ics2i">ICS 2i</option>
+                            <option value="ics1">ICS 1</option>
+                            <option value="ics523p">ICS 523P</option>
+                        </select>
+                    </div>
+
+                    <div class="data-set" id="data-set-unit">
+                        <h3 for="coord-unit">Input Coord Unit</h3>
+                        <label for="btn-radio-meter">Metre</label>
+                        <input type="radio"
+                            name="unit"
+                            data-unit="metre"
+                            value="metre"
+                            checked>
+                        <label for="btn-radio-feet">Feet</label>
+                        <input type="radio"
+                            name="unit"
+                            data-unit="feet"
+                            value="feet">
+                    </div>
+
+                    <div class="data-set" id="data-set-to">
+                        <h3 class="form-data" for="coord-origin">To</h3>
+                        <span class="form-data" id="output-coord-origin">NNO</span>
+                    </div>              
+                </fieldset>
+
+                <fieldset data-input-cood>
+                    <legend>Local Coordinate</legend>
+                    <label class="form-data" for="input_east">Easting</label>
+                    <input type="text"
+                        class="form-inline-block"
+                        placeholder="3025.40 E/W"
+                        autocomplete="off"
+                        name="input_east"
+                        id="input_coord_x"><span class="form-inline-block" data-unit-display="1"></span>
+                    <select class="form-inline-block" name="cardinal_x" id="cardinal_x">
+                        <option value="east">E</option>
+                        <option value="west">W</option>
+                    </select>
+
+                    <h2 class="coord_origin"><span input_coord_origin></span></h2>
+                    <label class="form-data" for="input_north">Northing</label>
+                    <input type="text"
+                        class="form-inline-block"
+                        placeholder="15247.47 N/S"
+                        autocomplete="off"
+                        name="input_north"
+                        id="input_coord_y"><span class="form-inline-block" data-unit-display="2"></span>
+                    <select class="form-inline-block" name="cardinal_y" id="cardinal_y">
+                        <option value="north">N</option>
+                        <option value="south">S</option>
+                    </select>
+                </fieldset>
+
+                <fieldset data-output-cood>
+                    <legend>NNO Coordinate</legend>
+                    <label class="form-data" for="input_east">Easting</label>
+                    <input class="form-inline-block" type="text" readonly id="out_coord_x">
+                    <span class="output-unit form-inline-block">m E</span>
+
+                    <h2 class="coord_origin">NNO</h2>
+                    <label class="form-data" for="input_north">Northing</label>
+                    <input class="form-inline-block" type="text" readonly id="out_coord_y">
+                    <span class="output-unit form-inline-block">m N</span>
+                </fieldset>
+
+                <fieldset data-btn>
+                    <input type="submit" value="Get NNO" id="getCoord">
+                    <button type="reset" id="clear">Clear</button>
+                </fieldset>
+
+            </form>
+        </main>
+
+        <script>
+            const appData = {};
+
+            const localOrigins = [
+                {
+                    name: 'tn',
+                    east: 164230.046,
+                    north: 375006.468
+                },
+                {
+                    name: 'scs1s',
+                    east: 113938.335,
+                    north: 507734.199
+                },
+                {
+                    name: 'ocs1old',
+                    east: 201570.63,
+                    north: 456947.51
+                },
+                {
+                    name: 'ocs47p',
+                    east: 166663.032,
+                    north: 425231.668
+                },
+                {
+                    name: 'ics1',
+                    east: 182793.711,
+                    north: 382796.123
+                },
+                {
+                    name: 'ics2i',
+                    east: 132618.012,
+                    north: 438340.206
+                },
+                {
+                    name: 'ics523p',
+                    east: 164841.21,
+                    north: 379003.104
+                }
+            ]
+
+            const inputOrigin = document.querySelector("[data-coord-origin]")
+            const metreChecked = document.querySelector('[data-unit="metre"]')
+            const feetChecked = document.querySelector('[data-unit="feet"]')
+            const input_x = document.querySelector("#input_coord_x")
+            const input_y = document.querySelector("#input_coord_y")
+            let inputCoordOrigin = document.querySelector("[input_coord_origin]")
+            const cardi_X = document.querySelector("#cardinal_x")
+            const cardi_y = document.querySelector("#cardinal_y")
+            let output_x = document.querySelector("#out_coord_x")
+            let output_y = document.querySelector("#out_coord_y")
+            const bthGetCoord = document.querySelector("#getCoord")
+            
+
+            const coordIsValid = () => {
+                if (/^[0-9]{1,}\.?\d*$/.test(input_x.value)) {
+                    appData.localEast = parseFloat(input_x.value);
+                }
+                if (/^[0-9]{1,}\.?\d*$/.test(input_y.value)) {
+                    appData.localNorth = parseFloat(input_y.value);
+                }
+            }
+
+            const whatCardinal = () => {
+                if (cardi_X.value === 'east') {
+                    appData.eastCardinal = cardi_X.value
+                }
+                else if (cardi_X.value === 'west') {
+                    appData.eastCardinal = cardi_X.value
+                }
+                if (cardi_y.value === 'north') {
+                    appData.northCardinal = cardi_y.value
+                }
+                else if (cardi_y.value === 'south') {
+                    appData.northCardinal = cardi_y.value
+                }
+            }
+
+            const coordInMetre = (unit) => {
+                if (metreChecked.checked) {
+                    appData.unitFactor = 1.000
+                    document.querySelector('[data-unit-display="1"]').textContent = 'm'
+                    document.querySelector('[data-unit-display="2"]').textContent = 'm';
+                }
+                else if (feetChecked.checked) {
+                    appData.unitFactor = 0.3048
+                    document.querySelector('[data-unit-display="1"]').textContent = 'ft';
+                    document.querySelector('[data-unit-display="2"]').textContent = 'ft';
+                }
+            }
+
+            const whatOrigin = () => {
+                localOrigins.forEach(origin => {
+                    if (origin.name === inputOrigin.value) {
+                        appData.eastFactor = origin.east;
+                        appData.northFactor = origin.north;
+                        inputCoordOrigin.textContent = inputOrigin.value.toUpperCase();
+                    }
+                });
+            }
+
+            inputOrigin.addEventListener('change', whatOrigin)
+            metreChecked.addEventListener('click', coordInMetre)
+            feetChecked.addEventListener('click', coordInMetre)
+            input_x.onblur = coordIsValid;
+            input_y.onblur = coordIsValid;
+            cardi_X.onchange = whatCardinal;
+            cardi_y.onchange = whatCardinal;
+
+            const convertToNno = (readyData) => {
+                let { localEast, localNorth, eastCardinal, northCardinal, eastFactor, northFactor, unitFactor } = readyData
+                let nnoCoord = {}
+                console.log(localEast, localNorth, eastCardinal, northCardinal, eastFactor, northFactor, unitFactor);
+                
+                if (eastCardinal === 'east' && localEast !== undefined) {
+                    nnoCoord.nnoEast = (eastFactor + (localEast * unitFactor))
+                }
+                else if (eastCardinal === 'west' && localEast !== undefined) {
+                    nnoCoord.nnoEast = (eastFactor - (localEast * unitFactor))
+                }
+                else{
+                    alert`Enter a valid coordinate for the Easting without letter and space`
+                }
+                if (northCardinal === 'north' && localNorth !== undefined) {
+                    nnoCoord.nnoNorth = (northFactor + (localNorth * unitFactor))
+                }
+                else if (northCardinal === 'south' && localNorth !== undefined) {
+                    nnoCoord.nnoNorth = (northFactor - (localNorth * unitFactor))
+                }
+                else{
+                    alert`Enter a valid coordinate for the Northing without letter and space`
+                }
+                return nnoCoord
+            }
+
+            bthGetCoord.addEventListener('click', (e) => {
+                e.preventDefault()
+                let coordOut = convertToNno(appData)
+                    output_x.value = coordOut.nnoEast.toFixed(3) ;
+                    output_y.value = coordOut.nnoNorth.toFixed(3);
+            })
+
+            const startApp = () => {
+                whatOrigin()
+                coordInMetre()
+                whatCardinal()
+            }
+
+            startApp();
+        </script>
+    </body>
+</html>
